@@ -6,7 +6,6 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Http\Request;
 use App\Models\Task;
 use App\Models\Project;
-use App\Models\User;
 
 class TaskController extends Controller
 {
@@ -133,10 +132,10 @@ class TaskController extends Controller
         $task = Task::findOrFail($request->input('task_id'));
         $prev = Task::find( $request->input('prev_id') );
 
-        if( !$request->input('prev_id') ){            
+        if(!$request->input('prev_id') ){            
             $currentDestination = 1;
 
-        }else if( !$request->input('next_id') ){
+        }else if(!$request->input('next_id') ){
             $currentDestination = Task::count();
         }else{
             $currentDestination = $task->priority < $prev->priority ? $prev->priority : $prev->priority + 1;
